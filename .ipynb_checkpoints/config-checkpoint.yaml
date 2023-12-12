@@ -1,0 +1,13 @@
+title: "Chat with Docs"
+header: Header
+tempfiles: tmpfiles
+
+# for add_documents
+chunk_add_size: 20
+
+supported_extensions: 
+- pdf
+- txt
+- xlsx
+- pptx
+- ppt

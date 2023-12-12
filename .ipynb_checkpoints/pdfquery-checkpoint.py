@@ -17,12 +17,19 @@ import chromadb
 from Util import yaml_dump, yaml_load
 cfg=yaml_load("config.yaml")
 
+
 class PDFQuery:
     def __init__(self, openai_api_key = None) -> None:
         """
             Should not have a Collection name
         """
-        self.chromaClient=chromadb.PersistentClient(path="db")
+        if cfg["chromadb_path"]!='memory':
+            self.chromaClient=chromadb.PersistentClient(path=cfg["chromadb_path"])
+            self.path_kw = {"persist_directory":cfg["chromadb_path"]}  
+        else:
+            self.chromaClient=chromadb.Client()
+            self.path_kw = {}
+            
         # self.embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
         # os.environ["OPENAI_API_KEY"] = openai_api_key
         self.embeddings = HuggingFaceInferenceAPIEmbeddings(
@@ -50,12 +57,21 @@ class PDFQuery:
         print("Deleting",collection_name)
         return self.chromaClient.delete_collection(name=collection_name)
         
+    def get_chroma_coll(self,collection):
+        if cfg["chromadb_path"]!="memory":
+            return Chroma(collection,
+                        self.embeddings,
+                        persist_directory=cfg["chromadb_path"]) 
+        else:
+            return Chroma(collection,
+                        self.embeddings) 
+        
     def ask(self, collection, question: str) -> str:
         if self.chain is None:
             response = "Please, add a document."
         else:
             # docs = self.db[collection].get_relevant_documents(question)
-            coll=Chroma(collection,self.embeddings,persist_directory="db")
+            coll=self.get_chroma_coll(collection)
             print(f"Searching in {len(coll.get()['ids'])} docs")
             retriever = coll.as_retriever(
                 search_type="mmr",
@@ -81,10 +97,7 @@ class PDFQuery:
         
         # self.db = Chroma.from_documents(splitted_documents, self.embeddings).as_retriever()
         print(">"*10,collection_name, f"Chunk add size: {cfg['chunk_add_size']}")
-        coll=Chroma(collection_name,
-                    self.embeddings,
-                    persist_directory="db",
-                    collection_metadata=collection_metadata)
+        coll=self.get_chroma_coll(collection_name)
         chunks=py_.chunk(splitted_documents,int(cfg['chunk_add_size']))
         for i,chunk in enumerate(chunks):
             

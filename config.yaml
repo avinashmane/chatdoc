@@ -1,3 +1,7 @@
+#chromadb persistence path
+#chromadb_path: None or relative path
+chromadb_path: memory  
+
 title: "Chat with Docs"
 header: Header
 tempfiles: tmpfiles

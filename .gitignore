@@ -1,6 +1,6 @@
 .*/
-__pycache__/
-.ipy*/**
+__pycache__/**
+.ipynb_checkpoints/**
 tmpfiles
 db
 *.log

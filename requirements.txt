@@ -1,7 +1,8 @@
+streamlit
+#streamlit-chat 
 pydash
 pypdfium2
-#streamlit-chat 
 langchain
 pandas
 chromadb
-# sqlite3 >= 3.35.0
+pysqlite3-binary 

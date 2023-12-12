@@ -1,6 +1,6 @@
 #chromadb persistence path
 #chromadb_path: None or relative path
-chromadb_path: memory  
+chromadb_path: db  
 
 title: "Chat with Docs"
 header: Header

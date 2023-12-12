@@ -1,0 +1,13 @@
+title: Wireframe for Multicloud Evaluator
+tab_names:
+- Assessment
+- Scope definition
+- Sizing
+- Services BOM
+- Hyperscaler Options"
+
+hyperscalers:
+- AWS
+- Azure
+- IBM
+- GCP

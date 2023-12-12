@@ -1,9 +1,0 @@
-Contact Group Name:	Test Group
-
-Members:	 
-
-- Data Recovery Test	-.Data.Recovery.Test@nl.ibm.com
-Anil D Kini	anil.kini@in.ibm.com
-Avinash T Mane	avinash.mane@in.ibm.com
-
-

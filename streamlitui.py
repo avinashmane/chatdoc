@@ -10,7 +10,7 @@ import re
 # import litellm
 # litellm.set_verbose=True # 👈 this is the 1-line change you need to make
 
-from langchain.schema import HumanMessage, AIMessage
+# from langchain.schema import HumanMessage, AIMessage
 
 dotenv.load_dotenv()
 cfg=yaml_load("config.yaml")

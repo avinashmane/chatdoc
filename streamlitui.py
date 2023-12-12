@@ -1,7 +1,7 @@
 import os
 import datetime
 import streamlit as st
-from streamlit_chat import message
+# from streamlit_chat import message
 from pdfquery import PDFQuery
 import dotenv, json
 from Util import yaml_dump, yaml_load
@@ -36,7 +36,7 @@ st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 def display_messages():
     st.subheader("Chat")
     for i, (msg, is_user) in enumerate(st.session_state["messages"]):
-        message(msg, is_user=is_user, key=str(i))
+        st.message(msg, is_user=is_user, key=str(i))
     st.session_state["thinking_spinner"] = st.empty()
 
 def process_input():

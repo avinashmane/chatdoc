@@ -4,4 +4,4 @@ pypdfium2
 langchain
 pandas
 chromadb
-sqlite3 >= 3.35.0
+# sqlite3 >= 3.35.0

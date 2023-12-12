@@ -71,7 +71,9 @@ def create_binary_file(folder_path, file_name):
 
 def main():
     
-    queryEngine = PDFQuery()
+    queryEngine = PDFQuery("together_ai/togethercomputer/llama-2-70b-chat")
+    # if not "pdfquery" in st.session_state:
+    #     queryEngine = PDFQuery("together_ai/togethercomputer/llama-2-70b-chat")
     if not "messages" in st.session_state.keys():
         st.toast("Starting")
         # st.success("select a collection")
@@ -90,8 +92,7 @@ def main():
                            [ 'New...']+collections,
                            key="collection",)
     
-    if not "pdfquery" in st.session_state:
-         queryEngine = PDFQuery(coll_name)
+
         
     # def update_selected_option():
     #   st.session_state.selected_option = ["selected_option"]
@@ -129,7 +130,8 @@ def main():
                                             coll_name, 
                                             # f"{file.name} ({file.size})",
                                             file_path):
-                        ingest_control.progress(100)
+                        ingest_control.progress(progress_pct)
+                    ingest_control.progress(100)
                     ingest_control=st.empty
                     # os.remove(file_path)
                 ingest_control=st.success(f'Processed as {coll_name}')

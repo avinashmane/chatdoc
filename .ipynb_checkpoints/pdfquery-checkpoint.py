@@ -19,7 +19,11 @@ cfg=yaml_load("config.yaml")
 
 
 class PDFQuery:
-    def __init__(self, openai_api_key = None) -> None:
+    max_tokens=256
+    temparature=0
+    def __init__(self, 
+                 llm_model_name = "together_ai/togethercomputer/llama-2-70b-chat", 
+                 openai_api_key = None) -> None:
         """
             Should not have a Collection name
         """
@@ -38,11 +42,19 @@ class PDFQuery:
                         )
         self.text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
         # self.llm = OpenAI(temperature=0, openai_api_key=openai_api_key)
-        self.llm = ChatLiteLLM(model="together_ai/togethercomputer/llama-2-70b-chat",temperature=0)
-        self.chain = load_qa_chain(self.llm, chain_type="stuff")
+        
+        self.set_model_with_params(llm_model_name,temparature=self.temparature)
         # self.chain = None
         self.db = {}
 
+    def set_model_with_params(self,llm_model_name="together_ai/togethercomputer/llama-2-70b-chat",**kwargs):
+        self.llm_model_name=llm_model_name
+        for param in kwargs:
+            setattr(self,param,kwargs[param])
+        print(self.llm_model_name,kwargs)
+        self.llm = ChatLiteLLM(model=self.llm_model_name,**kwargs)
+        self.chain = load_qa_chain(self.llm, chain_type="stuff")
+        
     def get_collections(self):
         return [c.name for c in #collection names
                             self.chromaClient.list_collections()]

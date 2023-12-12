@@ -7,10 +7,11 @@ import dotenv, json
 from Util import yaml_dump, yaml_load
 import pydash as py_
 import re
-import(‘pysqlite3’)
-import sys
-sys.modules[‘sqlite3’] = sys.modules.pop(‘pysqlite3’)
-
+try:
+    __import__('pysqlite3')
+    import sys
+    sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+except:pass
 # import litellm
 # litellm.set_verbose=True # 👈 this is the 1-line change you need to make
 
